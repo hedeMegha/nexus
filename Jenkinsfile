@@ -16,14 +16,14 @@ pipeline {
         NEXUS_REPOSITORY = "webapp"
         // Jenkins credential id to authenticate to Nexus OSS
         NEXUS_CREDENTIAL_ID = "nexusCredentials"
-        // ARTIFACT_VERSION = "${BUILD_NUMBER}"
+        ARTIFACT_VERSION = "${BUILD_NUMBER}"
     }
 
     stages {
         stage("Check out") {
             steps {
                 script {
-                    git branch: 'feature/nexusUpload', url: 'https://github.com/ranjit4github/LoginWebApp.git';
+                    git branch: 'feature/nexusUpload', url: 'https://github.com/hedeMegha/nexus.git';
                 }
             }
         }
@@ -58,7 +58,7 @@ pipeline {
                             protocol: NEXUS_PROTOCOL,
                             nexusUrl: NEXUS_URL,
                             groupId: pom.groupId,
-                            // version: ARTIFACT_VERSION,
+                            version: ARTIFACT_VERSION,
                             repository: NEXUS_REPOSITORY,
                             credentialsId: NEXUS_CREDENTIAL_ID,
                             artifacts: [
