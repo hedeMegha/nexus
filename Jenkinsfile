@@ -58,7 +58,7 @@ pipeline {
                             protocol: NEXUS_PROTOCOL,
                             nexusUrl: NEXUS_URL,
                             groupId: pom.groupId,
-                            version: ARTIFACT_VERSION,
+                            // version: ARTIFACT_VERSION,
                             repository: NEXUS_REPOSITORY,
                             credentialsId: NEXUS_CREDENTIAL_ID,
                             artifacts: [
@@ -74,19 +74,6 @@ pipeline {
                         error "*** File: ${artifactPath}, could not be found";
                     }
                 }
-            }
-        }
-        stage ('Execute Ansible Play - CD'){
-            agent {
-                label 'ansible'
-            }
-            steps{
-                script {
-                    git branch: 'feature/ansibleNexus', url: 'https://github.com/ranjit4github/Ansible_Demo_Project.git';
-                }
-                sh '''
-                    ansible-playbook -e vers=${BUILD_NUMBER} roles/site.yml
-                '''
             }
         }
     }
